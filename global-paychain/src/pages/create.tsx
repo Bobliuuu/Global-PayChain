@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Layout from "../components/layout"
-
+import { ethers } from 'ethers';
+import crypto from 'crypto';
 
 export default function CreatePage() {
   const [hasWallet, setHasWallet] = useState(null)
