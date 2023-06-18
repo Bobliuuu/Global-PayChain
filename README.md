@@ -43,3 +43,7 @@ Known issues: Send currentlly does not work on the Next.JS demo, as it needs to 
 Sometimes, swap does not provide the right gas prices, as the gas getPrice function is sometimes janky. 
 
 Areas of improvement: Accept more types of coins, add Stripe/GPT/Redux integration. 
+
+## Supporting Materials
+
+Intro to product + Demo Video: https://youtu.be/WD9LUcw-eEc
