@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { tokenList1, tokenList2 } from "../constants/constants";
 
 export default function Swap() {
@@ -7,39 +7,6 @@ export default function Swap() {
   const [inputValue, setInputValue] = useState("");
   const [isCalculating, setIsCalculating] = useState(false);
   const [estimatedGas, setEstimatedGas] = useState(0.01);
-
-  useEffect(() => {
-    if (isCalculating) {
-      const timeout = setTimeout(() => {
-        setInputValue((prevValue) => prevValue * 100);
-        setIsCalculating(false);
-      }, 1000);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [isCalculating]);
-
-  const getPrice = async () => {
-    const response = await fetch('https://tokens.coingecko.com/uniswap/all.json');
-    const data = await response.json();
-
-    const params = {
-      buyToken: token2.address,
-      sellToken: token1.address,
-      sellAmount: 1,
-    };
-
-    const headers = {'0x-api-key: [api-key]'}; // This is a placeholder. Get your live API key from the 0x Dashboard (https://dashboard.0x.org/apps)
-  
-    // Fetch the swap price.
-    const response = await fetch(`https://api.0x.org/swap/v1/price?${qs.stringify(params)}`, { headers });
-    
-    swapPriceJSON = await response.json();
-    console.log("Price: ", swapPriceJSON);
-    
-    document.getElementById("to_amount").value = swapPriceJSON.buyAmount / (10 ** currentTrade.to.decimals);
-    document.getElementById("gas_estimate").innerHTML = swapPriceJSON.estimatedGas;
-  }
 
   const handleToken1Change = (e) => {
     setSelectedToken1(e.target.value);
@@ -55,9 +22,51 @@ export default function Swap() {
     setIsCalculating(true);
   };
 
-  const handleConnectMetamask = (e) => {
+  /*
+  const getPrice = async () => {
+    console.log("Getting Price");
+    // Only fetch price if from token, to token, and from token amount have been filled in 
+    if (!currentTrade.from || !currentTrade.to || !document.getElementById("from_amount")?.value) return;
+    // The amount is calculated from the smallest base unit of the token. We get this by multiplying the (from amount) x (10 to the power of the number of decimal places)
+    let amount = Number(document.getElementById("from_amount").value) * 10 ** currentTrade.from.decimals;
+    const params = {
+      sellToken: currentTrade.from.address,
+      buyToken: currentTrade.to.address,
+      sellAmount: amount,
+    };
+
+    try {
+      // Fetch the swap price.
+      const response = await fetch(`https://api.0x.org/swap/v1/price?${qs.stringify(params)}`);
+      // Await and parse the JSON response
+      const swapPriceJSON = await response.json();
+      console.log("Price: ", swapPriceJSON);
+      setSwapPrice(swapPriceJSON); // Save the swap price in the state
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  */
+
+  const handleConnectMetamask = async (e) => {
     // Connect wallet logic
-    setSelectedToken1(e.target.value);
+    if (typeof window.ethereum !== 'undefined') {
+      try {
+        console.log('Connecting...');
+        await ethereum.request({ method: 'eth_requestAccounts' });
+        const accounts = await ethereum.request({ method: 'eth_accounts' });
+        if (accounts.length > 0) {
+          const walletAddress = accounts[0];
+          console.log('Wallet Address:', walletAddress);
+          setGeneratedAddress(walletAddress);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } 
+    else {
+      alert("Please install Metamask");
+    }
   };
 
   const handleSwapTokens = () => {
@@ -100,7 +109,7 @@ export default function Swap() {
             <div className="flex">
               <input
                 type="number"
-                value={isCalculating ? "Calculating best price" : inputValue * 100}
+                value={inputValue}
                 readOnly
                 className="border border-gray-400 rounded p-2 bg-gray-100"
               />
