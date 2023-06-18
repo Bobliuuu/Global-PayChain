@@ -19,6 +19,28 @@ export default function Swap() {
     }
   }, [isCalculating]);
 
+  const getPrice = async () => {
+    const response = await fetch('https://tokens.coingecko.com/uniswap/all.json');
+    const data = await response.json();
+
+    const params = {
+      buyToken: token2.address,
+      sellToken: token1.address,
+      sellAmount: 1,
+    };
+
+    const headers = {'0x-api-key: [api-key]'}; // This is a placeholder. Get your live API key from the 0x Dashboard (https://dashboard.0x.org/apps)
+  
+    // Fetch the swap price.
+    const response = await fetch(`https://api.0x.org/swap/v1/price?${qs.stringify(params)}`, { headers });
+    
+    swapPriceJSON = await response.json();
+    console.log("Price: ", swapPriceJSON);
+    
+    document.getElementById("to_amount").value = swapPriceJSON.buyAmount / (10 ** currentTrade.to.decimals);
+    document.getElementById("gas_estimate").innerHTML = swapPriceJSON.estimatedGas;
+  }
+
   const handleToken1Change = (e) => {
     setSelectedToken1(e.target.value);
   };
