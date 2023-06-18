@@ -12,7 +12,7 @@ export default function IndexPage() {
           <Image src="/logo.png" alt="Global PayChain Logo" width={200} height={200} />
         </div>
         <p className="mb-4">
-          Global PayChain is an 
+          Global PayChain is a
         </p>
         <p className="mb-4">
           Special formatted text about how to login goes here.
