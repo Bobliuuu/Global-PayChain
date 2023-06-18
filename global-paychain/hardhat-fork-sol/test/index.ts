@@ -35,11 +35,11 @@ describe("0x API integration", function () {
 
     // Get a signer for the account we are impersonating
     const signer = await ethers.getSigner(takerAddress);
-    const dai = new ethers.Contract(buyToken, MINIMAL_ERC20_ABI, signer);
+    const sol = new ethers.Contract(buyToken, MINIMAL_ERC20_ABI, signer);
 
     // Get pre-swap balances for comparison
     const etherBalanceBefore = await signer.getBalance();
-    const daiBalalanceBefore = await dai.balanceOf(takerAddress);
+    const solBalalanceBefore = await sol.balanceOf(takerAddress);
 
     // Send the transaction
     const txResponse = await signer.sendTransaction({
@@ -56,17 +56,17 @@ describe("0x API integration", function () {
     // Verify that the transaction was successful
     expect(txReceipt.status).to.equal(1, "successful swap transaction");
 
-    // Get post-swap balances and etherscan link
+    // Get post-swap balances and solscan link
     const etherBalanceAfter = await signer.getBalance();
-    const daiBalanceAfter = await dai.balanceOf(takerAddress);
-    const etherscanLink = `https://solana-mainnet.g.alchemy.com/v2/MeaQr2M1A7XR5OS-CbRZMDrX3CqjBG0S/tx/${txReceipt.transactionHash}`;
+    const solBalanceAfter = await sol.balanceOf(takerAddress);
+    const solscanLink = `https://solana-mainnet.g.alchemy.com/v2/MeaQr2M1A7XR5OS-CbRZMDrX3CqjBG0S/tx/${txReceipt.transactionHash}`;
 
     expect(
       etherBalanceBefore.sub(etherBalanceAfter).gte(ONE_ETHER_BASE_UNITS)
     ).to.equal(true);
 
-    // Our account has more DAI after the swap than before
-    expect(daiBalanceAfter.gt(daiBalalanceBefore)).to.equal(true);
+    // Our account has more sol after the swap than before
+    expect(solBalanceAfter.gt(solBalalanceBefore)).to.equal(true);
 
     console.log(
       "--------BALANCES (before -> after)---------------------------"
@@ -75,11 +75,11 @@ describe("0x API integration", function () {
       `ETH: ${etherBalanceBefore.toString()} -> ${etherBalanceAfter.toString()}`
     );
     console.log(
-      `DAI: ${daiBalalanceBefore.toString()} -> ${daiBalanceAfter.toString()}`
+      `sol: ${solBalalanceBefore.toString()} -> ${solBalanceAfter.toString()}`
     );
     console.log(
       "-------------------------------------------------------------"
     );
-    console.log(etherscanLink);
+    console.log(solscanLink);
   });
 });
