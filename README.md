@@ -40,7 +40,7 @@ Unit tests and comprehensive testing (in Hardhat and local testing) was done in 
 ## Limitations and Future Enhancements
 
 Known issues: Send currentlly does not work on the Next.JS demo, as it needs to be integrated with the Alchemy hardhat VM. The lockfile should send messages using cross-chain passing to the frontend. 
-Sometimes, swap does not provide the right gas prices, as the gas getPrice function is sometimes janky. 
+Sometimes, swap does not provide the right gas prices, as the gas getPrice function is not working properly. 
 
 Areas of improvement: Accept more types of coins, add Stripe/GPT/Redux integration. 
 
