@@ -12,7 +12,7 @@ export default function IndexPage() {
           <Image src="/logo.png" alt="Global PayChain Logo" width={200} height={200} />
         </div>
         <p className="mb-4">
-          Global PolyChain
+          The revolutionary international money transfer application! 
         </p>
         <p className="mb-4">
           First, login to our app! Once that happens, create a wallet, and purchase cryptocurrency using our custom links. We recommend Solana. 
