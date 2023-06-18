@@ -9,18 +9,20 @@ The architecture uses Next.js Auth and decentralized storage, as well as Prisma 
 ## Running the Code
 
 To run the program, run these commands: 
-```
+```bash
 cd global-paychain
 npm i
-npm run dev```
+npm run dev
+```
 
 there is also a hardhat-fork-sol, which is an Alchemy virtual environment to test Solana mainnet transactions without wasting gas fees on testnet.
 Gas fees are automatically calculated on Solidity.
 
-```
+```bash
 cd hardhat-fork-sol
 npm i
-npm hardhat test (should test both Lock and index)```
+npm hardhat test # (should test both Lock and index)
+```
 
 In the future, this will support the Next.JS frontend with Axelar's general message passing cross-chain. 
 
