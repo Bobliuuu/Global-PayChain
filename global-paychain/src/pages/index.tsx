@@ -12,7 +12,7 @@ export default function IndexPage() {
           <Image src="/logo.png" alt="Global PayChain Logo" width={200} height={200} />
         </div>
         <p className="mb-4">
-          The revolutionary international money transfer application! 
+        International money transfers are expensive, complicated, and long. Global Paychain lets you transfer funds from anywhere, any way. 
         </p>
         <p className="mb-4">
           First, login to our app! Once that happens, create a wallet, and purchase cryptocurrency using our custom links. We recommend Solana. 
