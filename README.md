@@ -15,6 +15,8 @@ npm i
 npm run dev
 ```
 
+Got to http://localhost:3000/ and see the magic! 
+
 there is also a hardhat-fork-sol, which is an Alchemy virtual environment to test Solana mainnet transactions without wasting gas fees on testnet.
 Gas fees are automatically calculated on Solidity.
 
