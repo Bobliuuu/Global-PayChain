@@ -13,7 +13,7 @@ const Pricing = () => {
         <div className="grid grid-cols-3 gap-8">
           <div className="border border-gray-300 rounded p-6">
             <h2 className="text-xl font-bold mb-4">Free Tier (0$/month)</h2>
-            <p className="mb-4">Up to 10 transactions a monthfor FREE</p>
+            <p className="mb-4">Up to 10 transactions a month for FREE</p>
             <p className="mb-4">Unlimited wallets and token buy/swap</p>
             <button
               className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
