@@ -18,5 +18,9 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+
+  experimental: {
+    newNextLinkBehavior: false,
+  },
 };
 export default config;
