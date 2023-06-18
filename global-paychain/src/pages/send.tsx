@@ -5,7 +5,8 @@ import Layout from "../components/layout"
 const Send = () => {
   const [fromWallet, setFromWallet] = useState('');
   const [toWallet, setToWallet] = useState('');
-  const [solanaBalance, setSolanaBalance] = useState('');
+  const [solanaBalance, setSolanaBalance] = useState('10');
+  const [verified, setVerified] = useState(false);
 
   useEffect(() => {
     // Function to get Solana balance
@@ -44,6 +45,7 @@ const Send = () => {
     console.log('Verifying transaction...');
     await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulate a 3-second delay
     console.log('Transaction verified!');
+    setVerified(true);
   };
 
   const handleCompleteTransaction = () => {
@@ -84,14 +86,15 @@ const Send = () => {
             placeholder="Enter To Wallet"
           />
         </div>
-        <button
+        {!verified && (<button
           className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4"
           onClick={handleVerifyTransaction}
         >
           Verify Transaction
-        </button>
+          </button>
+        )}
         <div className="flex flex-col items-center justify-center">
-          {solanaBalance !== '' && (
+          {verified && (
             <button
               className="bg-green-500 text-white px-4 py-2 rounded-md"
               onClick={handleCompleteTransaction}
