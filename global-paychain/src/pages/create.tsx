@@ -1,20 +1,40 @@
 import { useState } from 'react'
 import Layout from "../components/layout"
 
+
 export default function CreatePage() {
   const [hasWallet, setHasWallet] = useState(null)
   const [generatedAddress, setGeneratedAddress] = useState('')
 
-  const handleConnectMetamask = () => {
-    // Connect with Metamask logic
-    console.log('Connecting with Metamask...')
-  }
+  const handleConnectMetamask = async () => {
+    if (typeof window.ethereum !== 'undefined') {
+      try {
+        console.log('Connecting...');
+        await ethereum.request({ method: 'eth_requestAccounts' });
+        const accounts = await ethereum.request({ method: 'eth_accounts' });
+        if (accounts.length > 0) {
+          const walletAddress = accounts[0];
+          console.log('Wallet Address:', walletAddress);
+          setGeneratedAddress(walletAddress);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      alert("Please install Metamask");
+    }
+  };
 
   const handleGenerateAddress = async () => {
     // Generate wallet address logic
-    const response = await fetch('https://api.example.com/generateAddress')
-    const data = await response.json()
-    setGeneratedAddress(data.address)
+    const id = crypto.randomBytes(32).toString('hex');
+    const privateKey = '0x' + id;
+    console.log('SAVE BUT DO NOT SHARE THIS:', privateKey);
+
+    const wallet = new ethers.Wallet(privateKey);
+    console.log('Address:', wallet.address);
+    setGeneratedAddress(wallet.address);
+
   }
 
   return (
