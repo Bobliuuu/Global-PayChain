@@ -20,23 +20,34 @@ const Send = () => {
   }, []);
 
   const handleConnectMetamask = async () => {
-    try {
-      // Connect to Metamask
-      await ethereum.request({ method: 'eth_requestAccounts' });
-    } catch (error) {
-      console.log(error);
+    if (typeof window.ethereum !== 'undefined') {
+      try {
+        console.log('Connecting...');
+        await ethereum.request({ method: 'eth_requestAccounts' });
+        const accounts = await ethereum.request({ method: 'eth_accounts' });
+        if (accounts.length > 0) {
+          const walletAddress = accounts[0];
+          console.log('Wallet Address:', walletAddress);
+          setGeneratedAddress(walletAddress);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } 
+    else {
+      alert("Please install Metamask");
     }
   };
 
-  // Dummy functions lol
-
   const handleVerifyTransaction = async () => {
+    // Logic for verifying transaction
     console.log('Verifying transaction...');
     await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulate a 3-second delay
     console.log('Transaction verified!');
   };
 
   const handleCompleteTransaction = () => {
+    // Logic for completing transaction
     console.log('Completing transaction...');
   };
 
@@ -58,6 +69,19 @@ const Send = () => {
             onChange={(e) => setFromWallet(e.target.value)}
             className="p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
             placeholder="Enter From Wallet"
+          />
+        </div>
+        <div className="flex flex-col mb-6">
+          <label htmlFor="toWallet" className="text-gray-800 font-bold mb-2">
+            To Wallet
+          </label>
+          <input
+            id="toWallet"
+            type="text"
+            value={toWallet}
+            onChange={(e) => setToWallet(e.target.value)}
+            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+            placeholder="Enter To Wallet"
           />
         </div>
         <button

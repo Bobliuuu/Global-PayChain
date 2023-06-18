@@ -2,12 +2,45 @@ import { useState, useEffect } from "react";
 import { tokenList1, tokenList2 } from "../constants/constants";
 
 export default function Swap() {
-  // setup possible states
   const [selectedToken1, setSelectedToken1] = useState("");
   const [selectedToken2, setSelectedToken2] = useState(tokenList2[0].address);
   const [inputValue, setInputValue] = useState("");
   const [isCalculating, setIsCalculating] = useState(false);
   const [estimatedGas, setEstimatedGas] = useState(0.01);
+
+  useEffect(() => {
+    if (isCalculating) {
+      const timeout = setTimeout(() => {
+        setInputValue((prevValue) => prevValue * 100);
+        setIsCalculating(false);
+      }, 1000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [isCalculating]);
+
+  const handleToken1Change = (e) => {
+    setSelectedToken1(e.target.value);
+  };
+
+  const handleToken2Change = (e) => {
+    setSelectedToken2(e.target.value);
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+    setIsCalculating(true);
+  };
+
+  const handleConnectMetamask = (e) => {
+    // Connect wallet logic
+    setSelectedToken1(e.target.value);
+  };
+
+  const handleSwapTokens = () => {
+    // Swap tokens logic
+  };
 
   return (
     <div className="flex flex-col h-screen items-center justify-center">

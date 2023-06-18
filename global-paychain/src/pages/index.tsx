@@ -12,10 +12,19 @@ export default function IndexPage() {
           <Image src="/logo.png" alt="Global PayChain Logo" width={200} height={200} />
         </div>
         <p className="mb-4">
-          Global PayChain is a
+          Global PolyChain
         </p>
         <p className="mb-4">
-          Special formatted text about how to login goes here.
+          First, login to our app! Once that happens, create a wallet, and purchase cryptocurrency using our custom links. We recommend Solana. 
+        </p>
+        <p className="mb-4">
+          Next, convert your coins to solana if required, through our user portal. 
+        </p>
+        <p className="mb-4">
+          Finally, all you have to do is input a wallet address and another wallet address, and send an international transaction in ONE CLICK! 
+        </p>
+        <p className="mb-4">
+          You get 10 FREE transactions. After that, see our pricing window for more details about our subscription tier. 
         </p>
       </div>
     </div>
